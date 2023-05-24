@@ -1,14 +1,20 @@
 <script setup>
 import { ref } from "vue";
 import axios from "../configs/axios/index";
+
 const name = ref("");
 const password = ref("");
 
-const submit = () => {
-  axios.post("login", {
-    name: name.value,
-    password: password.value,
-  });
+const submit = async () => {
+  try {
+    const response = await axios.post("login", {
+      name: name.value,
+      password: password.value,
+    });
+    router;
+  } catch (err) {
+    console.log(err);
+  }
 };
 </script>
 
