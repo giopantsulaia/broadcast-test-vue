@@ -1,17 +1,20 @@
 <script setup>
 import { ref } from "vue";
 import axios from "../configs/axios/index";
-
-const name = ref("");
+import router from "../router";
+import setCsrfToken from "../helpers/setCsrfToken";
+const email = ref("");
 const password = ref("");
 
 const submit = async () => {
+  setCsrfToken();
   try {
     const response = await axios.post("login", {
-      name: name.value,
+      email: email.value,
       password: password.value,
     });
-    router;
+    sessionStorage.setItem("access_token", response.data.token);
+    router.push("/");
   } catch (err) {
     console.log(err);
   }
@@ -23,12 +26,12 @@ const submit = async () => {
     class="w-full h-screen flex flex-col items-center justify-center border border-black"
   >
     <form class="w-1/5 mx-auto flex flex-col" @submit.prevent="submit">
-      <label for="name">Name</label>
+      <label for="email">Email</label>
       <input
-        type="text"
-        name="name"
-        id="name"
-        v-model="name"
+        type="email"
+        name="email"
+        id="email"
+        v-model="email"
         class="border border-gray-400 rounded-md p-2 outline-none"
       />
       <label for="password" class="mt-6">Password</label>

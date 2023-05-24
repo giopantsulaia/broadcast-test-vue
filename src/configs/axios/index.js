@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// import router from "@/router";
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
@@ -10,4 +9,11 @@ const axiosInstance = axios.create({
     "X-Requested-With": "XMLHttpRequest",
   },
 });
+axiosInstance.interceptors.request.use((config) => {
+  const token = sessionStorage.getItem("access_token");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+axiosInstance.defaults.withCredentials = true;
 export default axiosInstance;
