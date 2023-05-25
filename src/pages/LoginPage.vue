@@ -1,9 +1,10 @@
 <script setup>
 import { ref } from "vue";
 import axios from "../configs/axios/index";
-import router from "../router";
+import { useRouter } from "vue-router";
 const email = ref("");
 const password = ref("");
+const router = useRouter();
 
 const submit = async () => {
   try {
