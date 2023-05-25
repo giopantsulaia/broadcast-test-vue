@@ -15,5 +15,4 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-axiosInstance.defaults.withCredentials = true;
 export default axiosInstance;

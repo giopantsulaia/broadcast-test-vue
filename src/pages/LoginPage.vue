@@ -2,12 +2,10 @@
 import { ref } from "vue";
 import axios from "../configs/axios/index";
 import router from "../router";
-import setCsrfToken from "../helpers/setCsrfToken";
 const email = ref("");
 const password = ref("");
 
 const submit = async () => {
-  setCsrfToken();
   try {
     const response = await axios.post("login", {
       email: email.value,
