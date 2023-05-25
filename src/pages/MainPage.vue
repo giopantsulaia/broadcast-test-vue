@@ -2,11 +2,13 @@
 import { onMounted, reactive, ref } from "vue";
 import axios from "../configs/axios/index.js";
 import instantiatePusher from "../helpers/instantiatePusher.js";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import PresenceChannel from "../components/PresenceChannel.vue";
+
+const router = useRouter();
 const userName = ref("");
 const userId = ref(0);
 const usersOnline = reactive([]);
-const router = useRouter();
 
 const logout = async () => {
   try {
@@ -24,11 +26,7 @@ const removeMember = (member) => {
 const joinMember = (member) => {
   usersOnline.value.push(member);
 };
-onMounted(async () => {
-  const response = await axios.get("user");
-  userName.value = response.data.name;
-  userId.value = response.data.id;
-  instantiatePusher();
+const showActiveUsers = () => {
   const online = window.Echo.join("online");
   online
     .here((members) => {
@@ -36,11 +34,20 @@ onMounted(async () => {
     })
     .leaving((member) => removeMember(member))
     .joining((member) => joinMember(member));
+};
+
+onMounted(async () => {
+  const response = await axios.get("user");
+  userName.value = response.data.name;
+  userId.value = response.data.id;
+  instantiatePusher();
+  showActiveUsers();
 });
 </script>
+
 <template>
   <nav
-    class="relative top-0 left-0 w-full h-16 border-b-2 flex justify-between items-center px-10"
+    class="relative top-0 left-0 w-full h-16 border-b-2 flex justify-between items-center px-20"
   >
     <h1 class="text-3xl font-black" v-if="userName">
       {{ userName }}
@@ -49,12 +56,8 @@ onMounted(async () => {
       LOG OUT
     </button>
   </nav>
-  <div class="flex flex-col px-10 mt-4 w-fit">
-    <h2 class="text-xl">Online users: {{ usersOnline.value?.length }}</h2>
-    <ul>
-      <li v-for="user in usersOnline.value" class="text-xl my-4">
-        {{ user.name }} <span class="text-green-500">●</span>
-      </li>
-    </ul>
-  </div>
+  <presence-channel
+    v-if="usersOnline.value"
+    :users-online="usersOnline.value"
+  ></presence-channel>
 </template>
