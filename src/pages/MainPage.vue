@@ -2,24 +2,13 @@
 import { onMounted, reactive, ref } from "vue";
 import axios from "../configs/axios/index.js";
 import instantiatePusher from "../helpers/instantiatePusher.js";
-import { useRoute, useRouter } from "vue-router";
 import PresenceChannel from "../components/PresenceChannel.vue";
+import NavBar from "../components/NavBar.vue";
 
-const router = useRouter();
 const userName = ref("");
 const userId = ref(0);
 const usersOnline = reactive([]);
 
-const logout = async () => {
-  try {
-    window.Echo.leave("online");
-    await axios.post("logout");
-    sessionStorage.clear();
-    router.push("/login");
-  } catch (err) {
-    console.log(err);
-  }
-};
 const removeMember = (member) => {
   usersOnline.value = usersOnline.value.filter((user) => user.id != member.id);
 };
@@ -46,16 +35,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <nav
-    class="relative top-0 left-0 w-full h-16 border-b-2 flex justify-between items-center px-20"
-  >
-    <h1 class="text-3xl font-black" v-if="userName">
-      {{ userName }}
-    </h1>
-    <button class="text-2xl text-red-600 font-bold" @click="logout">
-      LOG OUT
-    </button>
-  </nav>
+  <nav-bar></nav-bar>
   <presence-channel
     v-if="usersOnline.value"
     :users-online="usersOnline.value"
