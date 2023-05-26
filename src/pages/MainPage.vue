@@ -35,7 +35,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <nav-bar></nav-bar>
+  <nav-bar :user-name="userName"></nav-bar>
   <presence-channel
     v-if="usersOnline.value"
     :users-online="usersOnline.value"
