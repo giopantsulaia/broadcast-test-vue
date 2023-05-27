@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from "vue-router";
-import axios from "../configs/axios/index";
+import axios from "@/configs/axios/index";
 const router = useRouter();
 const props = defineProps({
   userName: {

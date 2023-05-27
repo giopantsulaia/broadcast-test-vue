@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import axios from "../configs/axios";
+import axios from "@/configs/axios";
 
 const message = ref("");
 

@@ -36,7 +36,7 @@ onMounted(() => {
     >
       <div class="flex items-center justify-center z-50">
         <p class="text-3xl font-black">{{ saysHello }} says hello</p>
-        <img src="../assets/wave.gif" alt="wave" width="90" height="90" />
+        <img src="@/assets/wave.gif" alt="wave" width="90" height="90" />
       </div>
     </div>
     <h2 class="font-bold text-2xl border-b-2 border-gray-400">

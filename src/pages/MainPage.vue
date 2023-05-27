@@ -1,11 +1,11 @@
 <script setup>
 import { onMounted, reactive, ref } from "vue";
-import axios from "../configs/axios/index.js";
-import instantiatePusher from "../helpers/instantiatePusher.js";
-import PresenceChannel from "../components/PresenceChannel.vue";
-import NavBar from "../components/NavBar.vue";
-import PublicChannel from "../components/PublicChannel.vue";
-import PrivateChannel from "../components/PrivateChannel.vue";
+import axios from "@/configs/axios/index.js";
+import instantiatePusher from "@/helpers/instantiatePusher.js";
+import PresenceChannel from "@/components/PresenceChannel.vue";
+import NavBar from "@/components/NavBar.vue";
+import PublicChannel from "@/components/PublicChannel.vue";
+import PrivateChannel from "@/components/PrivateChannel.vue";
 
 const userName = ref("");
 const userId = ref(0);

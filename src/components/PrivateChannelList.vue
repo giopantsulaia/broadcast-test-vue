@@ -1,5 +1,5 @@
 <script setup>
-import axios from "../configs/axios";
+import axios from "@/configs/axios";
 
 const props = defineProps({
   usersOnline: {
@@ -20,7 +20,7 @@ const sayHello = async (id) => {
     >
       <div class="flex">
         {{ user.name }}
-        <img src="../assets/wave.png" alt="wave" width="30" height="30" />
+        <img src="@/assets/wave.png" alt="wave" width="30" height="30" />
       </div>
     </li>
   </ul>
