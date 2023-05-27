@@ -5,16 +5,17 @@ import instantiatePusher from "../helpers/instantiatePusher.js";
 import PresenceChannel from "../components/PresenceChannel.vue";
 import NavBar from "../components/NavBar.vue";
 import PublicChannel from "../components/PublicChannel.vue";
+import PrivateChannel from "../components/PrivateChannel.vue";
 
 const userName = ref("");
 const userId = ref(0);
 const pusherActive = ref(false);
 const usersOnline = reactive([]);
 
-const removeMember = (member) => {
+const onUserLeave = (member) => {
   usersOnline.value = usersOnline.value.filter((user) => user.id != member.id);
 };
-const joinMember = (member) => {
+const onUserJoin = (member) => {
   usersOnline.value.push(member);
 };
 const showActiveUsers = () => {
@@ -23,16 +24,17 @@ const showActiveUsers = () => {
     .here((members) => {
       usersOnline.value = members.filter((member) => member.id != userId.value);
     })
-    .leaving((member) => removeMember(member))
-    .joining((member) => joinMember(member));
+    .leaving((member) => onUserLeave(member))
+    .joining((member) => onUserJoin(member));
 };
-const setUser = async () => {
+const setAuthenticatedUser = async () => {
   const response = await axios.get("user");
   userName.value = response.data.name;
   userId.value = response.data.id;
 };
+
 onMounted(() => {
-  setUser();
+  setAuthenticatedUser();
   pusherActive.value = instantiatePusher();
   showActiveUsers();
 });
@@ -46,8 +48,13 @@ onMounted(() => {
       :users-online="usersOnline.value"
     ></presence-channel>
     <public-channel
-      v-if="pusherActive"
       :auth-user-name="userName"
+      v-if="pusherActive"
     ></public-channel>
+    <private-channel
+      v-if="usersOnline.value"
+      :users-online="usersOnline.value"
+      :auth-user-id="userId"
+    ></private-channel>
   </div>
 </template>
