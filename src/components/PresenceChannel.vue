@@ -1,5 +1,5 @@
 <script setup>
-defineProps({
+const props = defineProps({
   usersOnline: {
     type: Array,
     required: true,
@@ -12,10 +12,10 @@ defineProps({
       Presence Channel
     </h2>
     <h2 class="text-lg mt-10 font-semibold">
-      Online users: {{ usersOnline?.length }}
+      Online users: {{ props.usersOnline?.length }}
     </h2>
     <ul>
-      <li v-for="user in usersOnline" class="text-xl my-2">
+      <li v-for="user in props.usersOnline" class="text-xl my-2">
         {{ user.name }} <span class="text-green-500">●</span>
       </li>
     </ul>

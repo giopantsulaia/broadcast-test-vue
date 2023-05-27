@@ -42,19 +42,18 @@ onMounted(() => {
 
 <template>
   <nav-bar :user-name="userName"></nav-bar>
-  <div class="flex flex-wrap gap-40">
-    <presence-channel
-      v-if="usersOnline.value"
-      :users-online="usersOnline.value"
-    ></presence-channel>
+  <div class="flex flex-wrap gap-40" v-if="usersOnline.value && pusherActive">
+    <presence-channel :users-online="usersOnline.value"></presence-channel>
     <public-channel
       :auth-user-name="userName"
       v-if="pusherActive"
     ></public-channel>
     <private-channel
-      v-if="usersOnline.value"
       :users-online="usersOnline.value"
       :auth-user-id="userId"
     ></private-channel>
+  </div>
+  <div v-else class="absolute w-fit left-0 right-0 mx-auto text-2xl top-48">
+    Loading...
   </div>
 </template>

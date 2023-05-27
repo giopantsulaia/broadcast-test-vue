@@ -2,7 +2,7 @@
 import { useRouter } from "vue-router";
 import axios from "../configs/axios/index";
 const router = useRouter();
-defineProps({
+const props = defineProps({
   userName: {
     type: String,
     required: true,
@@ -23,8 +23,8 @@ const logout = async () => {
   <nav
     class="relative top-0 left-0 w-full h-16 border-b-2 flex justify-between items-center px-20"
   >
-    <h1 class="text-3xl font-black" v-if="userName">
-      {{ userName }}
+    <h1 class="text-3xl font-black" v-if="props.userName">
+      {{ props.userName }}
     </h1>
     <button class="text-2xl text-red-600 font-bold" @click="logout">
       LOG OUT

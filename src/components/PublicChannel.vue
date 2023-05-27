@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, reactive } from "vue";
 import PublicChannelMessageForm from "./PublicChannelMessageForm.vue";
-defineProps({
+const props = defineProps({
   authUserName: {
     type: String,
     required: true,
@@ -27,7 +27,7 @@ onMounted(() => {
       <li v-for="message in messages" class="text-xl my-2 w-full flex flex-col">
         <div
           class="w-full flex flex-col"
-          :class="{ 'items-end': message.sender !== authUserName }"
+          :class="{ 'items-end': message.sender !== props.authUserName }"
         >
           <span class="font-semibold">{{ message.sender }} </span>
           <p>
