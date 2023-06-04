@@ -29,8 +29,8 @@ onMounted(() => {
           class="w-full flex flex-col"
           :class="{ 'items-end': message.sender !== props.authUserName }"
         >
-          <span class="font-semibold">{{ message.sender }} </span>
-          <p>
+          <span class="font-medium">{{ message.sender }} </span>
+          <p class="text-gray-600">
             {{ message.text }}
           </p>
         </div>

@@ -6,7 +6,7 @@ export default function instantiatePusher() {
   window.Echo = new Echo({
     authEndpoint: `${import.meta.env.VITE_API_BASE_URL}broadcasting/auth`,
     broadcaster: "pusher",
-    key: "5636ab9b33ce486e3b72",
+    key: import.meta.env.VITE_PUSHER_KEY,
     forceTLS: true,
     cluster: ["eu"],
     auth: {
